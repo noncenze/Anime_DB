@@ -11,6 +11,12 @@ Requirements for the weekend
 
 `5` Create (3-5) User Stories for the base user experience - ( [Reference](https://revelry.co/resources/development/user-stories-that-dont-suck/) )
 
+* Visual Database:
+    - Allow users to visually see the different items within the game
+    - Display the different stats and properties associated with each armor/weapon
+    - Allow users to create an account to favorite the items they want to their account
+
+
 `6` Resource's Restful Routing table ( [Readme](https://romebell.gitbook.io/sei-412/node-express/00readme-1/01intro-to-express/00readme#restful-routing) )
 
 `7` Find API and test to see if you can get data ( *be able to print data in the console using Axios, Node-Fetch, and/or Postman* )
