@@ -1,0 +1,15 @@
+<img src="">
+
+<ul>
+<img src="<%= data.assets.image %>" alt="" />
+
+<p>Name: <%= data.name %></p>
+
+<p>Weapon Type: <%= data.type %></p>
+<p>Attack Type: <%= data.damageType %></p>
+<p>Attack: <%= data.attack.display %> / Raw: <%= data.attack.raw %></p>
+<% data.crafting.craftingMaterials.forEach(item => { %>
+        <p>Item: <% item.name %></p>
+        <p>Description: <% item.description %></p>
+<% }); %>
+</ul>

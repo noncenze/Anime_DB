@@ -2,7 +2,7 @@
 
 `1` An application name / concept
 
-* Final Fantasy XIV Equipment Database: An equipment database that pulls and displays information on the various equipment used in Final Fantasy XIV, the popular online MMORPG based in the Final Fantasy universe.
+* <strong>Final Fantasy XIV Equipment Database</strong>: An equipment database that pulls and displays information on the various equipment used in Final Fantasy XIV, the popular online MMORPG based in the Final Fantasy universe.
 
 `2` A repo for your project 2 (built from express_auth template)
 
@@ -36,8 +36,12 @@ GET | /equipment | Index | list all equipment
 GET | /equipment/:id | Show | list all information about a specific piece of equipment
 PUT | /equipment/:id | Update | allow users to update a specific piece of equipment
 GET | /equipment/favorites | Show | shows a list of favorited equipment
-
+<br/>
 
 `7` Find API and test to see if you can get data ( *be able to print data in the console using Axios, Node-Fetch, and/or Postman* )
 
-Will update once I have information back from the API
+FFXIV API: https://xivapi.com/
+
+Receiving data back from the API
+
+![FFXIV API Results](./images/ffxiv_request.png)
