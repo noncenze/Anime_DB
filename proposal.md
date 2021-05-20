@@ -2,7 +2,7 @@
 
 `1` An application name / concept
 
-* <strong>Final Fantasy XIV Equipment Database</strong>: An equipment database that pulls and displays information on the various equipment used in Final Fantasy XIV, the popular online MMORPG based in the Final Fantasy universe.
+* <strong>Monster Hunter World Character Builder</strong>: An equipment database that pulls and displays information on the various weapons and armors used in Monster Hunter: World, the popular monster hunting action-based video game created by Capcom. 
 
 `2` A repo for your project 2 (built from express_auth template)
 

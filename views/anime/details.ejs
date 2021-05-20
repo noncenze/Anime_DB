@@ -1,0 +1,12 @@
+<ul>
+<h2>Anime Details</h2>
+<% //if (!anime.coverImage.tiny == false) { %>
+    <img src="<%= anime.posterImage.small %>" alt="<%= anime.titles.en %>" >
+<% //} else { %>
+    <p>No image</p>
+<% //} %>
+
+<p><strong>Anime Name:</strong> <%= anime.titles.en %></p>
+
+<p><strong>Description</strong><br/> <%= anime.description %></p>
+</ul>
