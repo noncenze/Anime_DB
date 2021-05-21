@@ -27,3 +27,19 @@ function addAnime(anime) {
   });
 }
 // addAnime(cowboyBebop);
+
+
+
+// Iterating through objects
+// const newArray = [];
+// .then (response => {
+//     data = response.data
+//     for (let i = 0; i < data.length; i++) {
+//         const element = data[i];
+//         if (element.coverImage) {
+//             newArray.push(element);
+//         } else {
+//             continue
+//         }
+//     }
+// })

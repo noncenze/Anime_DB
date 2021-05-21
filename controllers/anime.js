@@ -7,58 +7,42 @@ const db = require('../models');
 // ====================================================
 //                       GET ROUTES
 // ====================================================
+
+// SEARCH RESULTS - by categories with a specified limit
 router.get('/:id', (req, res) => {
     const search = req.query.userInput;
-    const animeURL = `https://kitsu.io/api/edge/anime?filter[text]=${search}`;
+    const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=2&filter[categories]=${search}`;
     axios.get(animeURL).then(response => {
-        let data = response.data.data[0].attributes;
-        let data2 = response.data.data;
-        console.log(data2);
+        let data = response.data.data;
+        console.log(data);
+        console.log("----------------- END ------------------");
+        res.render('anime/results', {animeResults: data})
+    }).catch(error => {
+        console.log('----------------- ERROR -----------------');
+        console.log(error);
+    })
+});
+
+
+// DETAILS PAGE - displays all the details associated with a specific anime
+router.get('/anime/:anime_Id', (req, res) => {
+    const animeId = req.params.anime_id;
+    const animeURL = `https://kitsu.io/api/edge/anime/${animeId}`;
+    axios.get(animeURL).then(response => {
+        const data = response.data.data;
+        console.log(data);
         res.render('anime/details', {anime: data})
+    }).catch(error => {
+        console.log('----------------- ERROR -----------------');
+        console.log(error);
     })
 })
-
-
-// router.get('/:id', (req, res) => {
-//     const search = req.query.userInput;
-//     const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=3&filter[categories]=${search}`;
-//     axios.get(animeURL).then(response => {
-//         let data = response.data.data;
-//         data.forEach(element => {
-//             console.log(element)
-//             res.render('anime/results', {anime: data});
-//             })
-//         })
-// })
-
-
-
-
 
 
 // ====================================================
 //                       POST ROUTES
 // ====================================================
-// router.post('/favorites', (req, res) => {
-//     db.anime.findOrCreate({
-//         where: {title: req.body.}
-//     })
-// })
+
 
 
 module.exports = router;
-
-
-// Iterating through objects
-// const newArray = [];
-// .then (response => {
-//     data = response.data
-//     for (let i = 0; i < data.length; i++) {
-//         const element = data[i];
-//         if (element.coverImage) {
-//             newArray.push(element);
-//         } else {
-//             continue
-//         }
-//     }
-// })

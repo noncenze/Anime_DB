@@ -1,13 +1,14 @@
 <ul>
 <h2>Anime Details</h2>
+<p>Hitting the route!!</p>
+
 <% if (anime.coverImage) { %>
-    <img src="<%= anime.posterImage.small %>" alt="<%= anime.titles.en %>" >
+    <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.titles.en %>" >
 <% } %>
 
+<p><strong>Anime Name:</strong> <%= anime.attributes.titles.en %></p>
+<p><strong>Description</strong><br/> <%= anime.attributes.description %></p>
 
-<p><strong>Anime Name:</strong> <%= anime.titles.en %></p>
-
-<p><strong>Description</strong><br/> <%= anime.description %></p>
 
 <a href="/">&larr; Home</a>
 </ul>

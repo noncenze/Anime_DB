@@ -1,11 +1,20 @@
 <div class="container">
-<h3 class="text-center">List of Adventure Anime</h3>
 
-<% anime.forEach(show => { %>
- <p>Anime Name: <%= show.attributes.slug %></p>
- <p>Description: <%= show.attributes.description %></p>
- <br/>
-<% }) %>
+    <ul>
+        <% animeResults.forEach(anime => { %>
+            <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">
+            <li>
+                <% if (anime.attributes.titles.en) { %>
+                <p>Anime Title: <%= anime.attributes.titles.en %> </p>
+                <% } else { %>
+                <p>Anime Title: <%= anime.attributes.canonicalTitle %></p>
+                <% }; %> 
+                <p>Anime Description: <%= anime.attributes.description %></p>
+                <a href="/anime/<%= anime.id%>">Details</a>
+            </li>
+        <% }) %>
+    </ul>
+
 
 <a href="/">&larr; Home</a>
 </div>
