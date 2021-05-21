@@ -19,16 +19,15 @@ app.use(layouts);
 app.use(methodOverride("_method"));
 
 app.use(session({
-  secret: SECRET_SESSION,
-  resave: false,
-  saveUninitialized: true
+  secret: SECRET_SESSION,               // What will be given to the user as a session cookie
+  resave: false,                        // Don't save the session when it's modified
+  saveUninitialized: true               // Save any new session
 }))
 
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use((req, res, next) => {
+app.use(passport.initialize());         // Start passport
+app.use(passport.session());            // Add a session using passport
+app.use(flash());                       // Initialize flash
+app.use((req, res, next) => {           // Store flash messages and user on res.locals
   console.log(res.locals);
   res.locals.alerts = req.flash();
   res.locals.currentUser = req.user;
@@ -37,17 +36,12 @@ app.use((req, res, next) => {
 
 
 // ====================================================
-//                     INDEX ROUTER
+//                     INDEX ROUTE
 // ====================================================
 app.get('/', (req, res) => {
   res.render('index');
 });
 
-// ====================================================
-//                      CONTROLLERS
-// ====================================================
-app.use('/auth', require('./controllers/auth'));
-app.use('/anime', require('./controllers/anime'));
 
 // ====================================================
 //                     PROFILE ROUTE
@@ -57,15 +51,24 @@ app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', {id, name, email});
 });
 
+
 // ====================================================
-//                    NON-VALID ROUTE
+//                      CONTROLLERS
+// ====================================================
+app.use('/auth', require('./controllers/auth'));
+app.use('/anime', require('./controllers/anime'));
+
+
+// ====================================================
+//                    NON-VALID ROUTES
 // ====================================================
 app.get('/*', (req, res) => {
   res.redirect('/');
 })
 
+
 // ====================================================
-//                   LISTENING / SERVER
+//                     PORT LISTENER
 // ====================================================
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {

@@ -43,3 +43,16 @@ function addAnime(anime) {
 //         }
 //     }
 // })
+
+/*
+<% if (anime.coverImage) { %>
+  <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.titles.en %>" >
+<% } %>
+
+<p><strong>Anime Name:</strong> <%= anime.attributes.titles.en %></p>
+<p><strong>Description</strong><br/> <%= anime.attributes.description %></p>
+
+
+<a href="/">&larr; Home</a>
+</ul>
+*/

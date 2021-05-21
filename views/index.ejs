@@ -1,12 +1,12 @@
 <h2>Homepage</h2>
 
-<ul>
-    <li><a href="/auth/signup">Sign Up</a></li>
-    <li><a href="/auth/login">Login</a></li>
-</ul>
-
-<form method="GET" action="/anime/details">
-    <label for="animeTitle">Anime Title</label>
-    <input type="text" name="userInput" id="animeTitle">
-    <input type="submit">
-</form>
+<% //if (!currentUser) { %> 
+    <p>Please sign in</p>
+<% //} else { %> 
+    <p>Search for anime here...</p>
+    <form method="GET" action="/anime/details">
+        <label for="animeTitle">Anime Title</label>
+        <input type="text" name="userInput" id="animeTitle">
+        <input type="submit">
+    </form>
+<% //}; %> 

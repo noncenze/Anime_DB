@@ -5,16 +5,14 @@
             <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">
             <li>
                 <% if (anime.attributes.titles.en) { %>
-                <p>Anime Title: <%= anime.attributes.titles.en %> </p>
+                <p>Title: <%= anime.attributes.titles.en %> </p>
                 <% } else { %>
-                <p>Anime Title: <%= anime.attributes.canonicalTitle %></p>
-                <% }; %> 
-                <p>Anime Description: <%= anime.attributes.description %></p>
-                <a href="/anime/<%= anime.id%>">Details</a>
+                <p>Title: <%= anime.attributes.canonicalTitle %></p>
+                <% }; %>
+                <a href="/anime/details/<%= anime.id %>">Details</a>
+                <br/>
             </li>
-        <% }) %>
+        <% }); %>
     </ul>
-
-
 <a href="/">&larr; Home</a>
 </div>
