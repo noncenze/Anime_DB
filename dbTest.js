@@ -1,22 +1,29 @@
-const { default: axios } = require('axios');
+// IMPORTS
+const axios = require('axios');
 const express = require('express');
 const app = express();
 const db = require('./models');
 
-app.get('/', (req, res) => {
-    const animeURL = `https://kitsu.io/api/edge/anime?filter[categories]=adventure`;
-    axios.get(animeURL).then(response => {
-        let data = response.data;
-        console.log(data);
-        res.send('Kitsu API Working');
-    })
-})
 
+// TEST HARD CODING
+const cowboyBebop = [
+  {
+  title: 'Cowboy Bebop',
+  type: 'tv',
+  image: 'https://media.kitsu.io/anime/poster_image/1/small.jpg?1597604210',
+  episodeCount: 26,
+  averageRating: 82.22,
+  popularityRank: 31
+  }
+];
 
-
-const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => {
-  console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
-});
-
-module.exports = server;
+function addAnime(anime) {
+  db.anime.bulkCreate(anime)
+  .then(newAnime => {
+    console.log(newAnime);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+}
+// addAnime(cowboyBebop);

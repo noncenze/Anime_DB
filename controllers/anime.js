@@ -1,6 +1,7 @@
 const { default: axios } = require('axios');
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
+const db = require('../models');
 
 
 // ====================================================
@@ -11,12 +12,41 @@ router.get('/:id', (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime?filter[text]=${search}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data[0].attributes;
-        console.log(data);
+        let data2 = response.data.data;
+        console.log(data2);
         res.render('anime/details', {anime: data})
     })
 })
 
 
+// router.get('/:id', (req, res) => {
+//     const search = req.query.userInput;
+//     const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=3&filter[categories]=${search}`;
+//     axios.get(animeURL).then(response => {
+//         let data = response.data.data;
+//         data.forEach(element => {
+//             console.log(element)
+//             res.render('anime/results', {anime: data});
+//             })
+//         })
+// })
+
+
+
+
+
+
+// ====================================================
+//                       POST ROUTES
+// ====================================================
+// router.post('/favorites', (req, res) => {
+//     db.anime.findOrCreate({
+//         where: {title: req.body.}
+//     })
+// })
+
+
+module.exports = router;
 
 
 // Iterating through objects
@@ -32,11 +62,3 @@ router.get('/:id', (req, res) => {
 //         }
 //     }
 // })
-
-
-// ====================================================
-//                       POST ROUTES
-// ====================================================
-// Working on it
-
-module.exports = router;

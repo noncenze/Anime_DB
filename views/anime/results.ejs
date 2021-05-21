@@ -1,0 +1,11 @@
+<div class="container">
+<h3 class="text-center">List of Adventure Anime</h3>
+
+<% anime.forEach(show => { %>
+ <p>Anime Name: <%= show.attributes.slug %></p>
+ <p>Description: <%= show.attributes.description %></p>
+ <br/>
+<% }) %>
+
+<a href="/">&larr; Home</a>
+</div>

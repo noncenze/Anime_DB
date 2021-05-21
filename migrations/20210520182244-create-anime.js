@@ -20,9 +20,6 @@ module.exports = {
       episodeCount: {
         type: Sequelize.INTEGER
       },
-      description: {
-        type: Sequelize.STRING
-      },
       averageRating: {
         type: Sequelize.FLOAT
       },
