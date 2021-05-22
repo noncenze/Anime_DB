@@ -16,7 +16,7 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 
 app.use(session({
   secret: SECRET_SESSION,               // What will be given to the user as a session cookie

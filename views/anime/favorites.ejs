@@ -1,10 +1,12 @@
 <h2>Favorites Page</h2>
 
 <% favorites.forEach(anime => { %>
-    <li>
-    <img src="<%= anime.dataValues.image %>">
-    <%= anime.dataValues.title %>
-    </li>
+    <ul>
+    <p>Anime Title: <%= anime.dataValues.title %></p>
+    <form method="POST" action="/anime/favorites/<%= anime.dataValues.id %>/?_method=DELETE">
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+    </ul>
 <% }); %>
 
 <br/>

@@ -1,3 +1,4 @@
+// IMPORTS
 const { default: axios } = require('axios');
 const express = require('express');
 const isLoggedIn = require('../middleware/isLoggedIn');
@@ -10,7 +11,7 @@ const db = require('../models');
 // ====================================================
 
 // FAVORITES DETAILS - displays a list of all the anime that have been favorited
-router.get('/favorites', (req, res) => {
+router.get('/favorites', isLoggedIn, (req, res) => {
     db.anime.findAll().then(response => {
         console.log(response);
         res.render('anime/favorites', {favorites: response})
@@ -26,7 +27,7 @@ router.get('/:id', (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=5&filter[text]=${search}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        console.log("------------------ END ------------------");
+        // console.log("------------------ END ------------------");
         res.render('anime/results', {animeResults: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -35,12 +36,12 @@ router.get('/:id', (req, res) => {
 });
 
 // DETAILS ROUTE - displays all the details associated with a specific anime
-router.get('/details/:id', (req, res) => {
+router.get('/details/:id', isLoggedIn, (req, res) => {
     const animeId = req.params.id;
     const animeURL = `https://kitsu.io/api/edge/anime/${animeId}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        console.log(data);
+        // console.log(data);
         res.render('anime/details', {anime: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -54,10 +55,24 @@ router.get('/details/:id', (req, res) => {
 // ====================================================
 
 // FAVORITES FUNCTIONALITY - saves item to favorites list
-router.post('/favorites', (req, res) => {
+router.post('/favorites', isLoggedIn, (req, res) => {
     db.anime.findOrCreate({
-        where: {title: req.body.title}
+        where: {title: req.body.searchResult},
     }).then(() => {
+        res.redirect('/anime/favorites');
+    }).catch(error => {
+        console.log('----------------- ERROR -----------------');
+        console.log(error);
+    })
+});
+
+// DELETE FUNCTIONALITY - deletes from favorites list
+router.delete('/favorites/:id', isLoggedIn, (req, res) => {
+    const animeId = req.params.id;  
+    db.anime.destroy({
+        where: {id: animeId}
+    }).then(response => {
+        console.log(response);
         res.redirect('/anime/favorites');
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
