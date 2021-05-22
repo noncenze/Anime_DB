@@ -1,6 +1,11 @@
 <div class="container">
-    <ul>
-        <% animeResults.forEach(anime => { %>
+    <% animeResults.forEach(anime => { %>
+        <% if (!currentUser) { %>
+            <!-- DISPLAYS ONLY IMAGES FOR NON-LOGGED USERS -->
+            <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">
+            <br/>
+        <% } else { %>
+            <!-- DISPLAYS EVERYTHING FOR LOGGED IN USERS -->
             <!-- DISPLAY TITLE -->
             <% if (anime.attributes.titles.en) { %>
                 <p>Title: <%= anime.attributes.titles.en %> </p>
@@ -12,7 +17,7 @@
             <br/>
             <!-- DETAILS BUTTONS -->
             <div class="btn btn-dark">
-            <a href="/anime/details/<%= anime.id %>">Details</a>
+                <a href="/anime/details/<%= anime.id %>">Details</a>
             </div>
             <!-- FAVORITES BUTTON -->
             <form method="POST" action="/anime/favorites">
@@ -20,7 +25,7 @@
                 <button class="btn btn-success" type="submit">Favorite</button>
             </form>
             <br/>
-        <% }); %>
-    </ul>
-<a href="/">&larr; Home</a>
+        <% }; %> 
+    <% }); %>
+    <a href="/">&larr; Home</a>
 </div>

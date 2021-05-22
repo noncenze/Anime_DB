@@ -1,9 +1,17 @@
 <ul>
 <h2>Anime Details</h2>
 
-<img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">  
-<p><strong>Anime Name:</strong> <%= anime.attributes.titles.en %></p>
-<p><strong>Description</strong><br/> <%= anime.attributes.description %></p>
-  
+<img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.canonicalTitle %>">  
+<p><strong>Anime Name: </strong><%= anime.attributes.titles.en %></p>
+<p><strong>Description: </strong><%= anime.attributes.description %></p>
+<p><strong>Type: </strong><%= anime.attributes.subtype %></p>
+<p><strong>Popularity Rank: </strong><%= anime.attributes.popularityRank %></p>
+
+<% if (anime.attributes.averageRating) { %>
+<p><strong>Average Rating: </strong><%= anime.attributes.averageRating %></p>
+<% } else { %>
+<p><strong>Average Rating: </strong>N/A</p>
+<% }; %> 
+
 <a href="/">&larr; Home</a>
 </ul>
