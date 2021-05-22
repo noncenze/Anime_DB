@@ -1,17 +1,25 @@
 <div class="container">
-
     <ul>
         <% animeResults.forEach(anime => { %>
-            <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">
-            <li>
-                <% if (anime.attributes.titles.en) { %>
+            <!-- DISPLAY TITLE -->
+            <% if (anime.attributes.titles.en) { %>
                 <p>Title: <%= anime.attributes.titles.en %> </p>
-                <% } else { %>
+            <% } else { %>
                 <p>Title: <%= anime.attributes.canonicalTitle %></p>
-                <% }; %>
-                <a href="/anime/details/<%= anime.id %>">Details</a>
-                <br/>
-            </li>
+            <% }; %>
+            <!-- DISPLAY IMAGE -->
+            <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">
+            <br/>
+            <!-- DETAILS BUTTONS -->
+            <div class="btn btn-dark">
+            <a href="/anime/details/<%= anime.id %>">Details</a>
+            </div>
+            <!-- FAVORITES BUTTON -->
+            <form method="POST" action="/anime/favorites">
+                <input hidden type="text" name="searchResult" value="<%= anime.attributes.canonicalTitle%>">
+                <button class="btn btn-success" type="submit">Favorite</button>
+            </form>
+            <br/>
         <% }); %>
     </ul>
 <a href="/">&larr; Home</a>

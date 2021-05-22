@@ -1,8 +1,11 @@
 <h2>Favorites Page</h2>
 
-<p>Blank Page for now</p>
+<% favorites.forEach(anime => { %>
+    <li>
+    <img src="<%= anime.dataValues.image %>">
+    <%= anime.dataValues.title %>
+    </li>
+<% }); %>
 
-
-
-
+<br/>
 <a href="/">&larr; Home</a>

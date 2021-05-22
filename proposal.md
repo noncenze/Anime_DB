@@ -25,12 +25,18 @@ Will update once I figure out how I want it to look
 
 `6` Resource's Restful Routing table ( [Readme](https://romebell.gitbook.io/sei-412/node-express/00readme-1/01intro-to-express/00readme#restful-routing) )
 
-VERB | URL | ACTION | Description
---- | --- | --- | ---
-GET | /equipment            | Index     | list all equipment
-GET | /equipment/:id        | Show      | list all information about 
-PUT | /equipment/:id        | Update    | allow users to update a specific piece of equipment
-GET | /equipment/favorites  | Show      | shows a list of favorited equipment
+VERB| URL                   | ACTION        | Description
+--- | ---                   | ---           | ---
+GET | /                     | Index (Read)  |   Main page
+GET | /auth/login           | Login (Read)  |   Log-in display
+GET | /auth/signup          | Signup (Read) |   Displays the current user's account
+GET | /auth/logout          | Logout (Read) |   Logs out the current account
+POST| /auth/login           | Login (Create)|   Allows users to login to a existing account
+POST| /auth/signup          | Signup (Create)|   Allows user to create an account
+GET | /anime/:id            | Display (Read)|   Displays the search results
+GET | /anime/details/:id    | Display (Read)|   Displays additional details on a specific anime
+GET | /anime/favorites      | Display (Read)|   Displays an account's favorites anime
+
 <br/>
 
 `7` Find API and test to see if you can get data ( *be able to print data in the console using Axios, Node-Fetch, and/or Postman* )
