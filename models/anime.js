@@ -14,12 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   anime.init({
-    title: DataTypes.STRING,
-    type: DataTypes.STRING,
-    image: DataTypes.STRING,
-    episodeCount: DataTypes.INTEGER,
-    averageRating: DataTypes.FLOAT,
-    popularityRank: DataTypes.INTEGER
+    animeId: DataTypes.INTEGER,
+    title: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'anime',

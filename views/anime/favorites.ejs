@@ -2,7 +2,13 @@
 
 <% favorites.forEach(anime => { %>
     <ul>
+    <!-- ANIME DETAILS -->
     <p>Anime Title: <%= anime.dataValues.title %></p>
+    <!-- DETAILS BUTTON -->
+    <div class="btn btn-dark">
+        <a href="/anime/details/<%= anime.dataValues.animeId %>">Details</a>
+    </div>
+    <!-- DELETE BUTTON -->
     <form method="POST" action="/anime/favorites/<%= anime.dataValues.id %>/?_method=DELETE">
         <input type="submit" value="Delete" class="btn btn-danger">
     </form>

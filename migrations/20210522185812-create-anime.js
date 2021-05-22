@@ -8,23 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      animeId: {
+        type: Sequelize.INTEGER
+      },
       title: {
         type: Sequelize.STRING
-      },
-      type: {
-        type: Sequelize.STRING
-      },
-      image: {
-        type: Sequelize.STRING
-      },
-      episodeCount: {
-        type: Sequelize.INTEGER
-      },
-      averageRating: {
-        type: Sequelize.FLOAT
-      },
-      popularityRank: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

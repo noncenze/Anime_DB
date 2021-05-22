@@ -27,7 +27,8 @@ router.get('/:id', (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=5&filter[text]=${search}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        // console.log("------------------ END ------------------");
+        console.log(data);
+        console.log("------------------ END ------------------");
         res.render('anime/results', {animeResults: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -41,7 +42,7 @@ router.get('/details/:id', isLoggedIn, (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime/${animeId}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        // console.log(data);
+        console.log(data);
         res.render('anime/details', {anime: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -57,7 +58,10 @@ router.get('/details/:id', isLoggedIn, (req, res) => {
 // FAVORITES FUNCTIONALITY - saves item to favorites list
 router.post('/favorites', isLoggedIn, (req, res) => {
     db.anime.findOrCreate({
-        where: {title: req.body.searchResult},
+        where: {
+            title: req.body.animeTitle, 
+            animeId: req.body.animeId
+        },
     }).then(() => {
         res.redirect('/anime/favorites');
     }).catch(error => {
@@ -68,9 +72,9 @@ router.post('/favorites', isLoggedIn, (req, res) => {
 
 // DELETE FUNCTIONALITY - deletes from favorites list
 router.delete('/favorites/:id', isLoggedIn, (req, res) => {
-    const animeId = req.params.id;  
+    const id = req.params.id;
     db.anime.destroy({
-        where: {id: animeId}
+        where: {id: id}
     }).then(response => {
         console.log(response);
         res.redirect('/anime/favorites');

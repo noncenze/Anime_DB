@@ -21,11 +21,12 @@
             </div>
             <!-- FAVORITES BUTTON -->
             <form method="POST" action="/anime/favorites">
-                <input hidden type="text" name="searchResult" value="<%= anime.attributes.titles.en %>">
+                <input hidden type="text" name="animeTitle" value="<%= anime.attributes.titles.en %>">
+                <input hidden type="text" name="animeId" value="<%= anime.id %>">
                 <button class="btn btn-success" type="submit">Favorite</button>
             </form>
             <br/>
-        <% }; %> 
+        <% }; %>
     <% }); %>
     <a href="/">&larr; Home</a>
 </div>
