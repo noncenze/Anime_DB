@@ -56,7 +56,7 @@ router.get('/details/:id', isLoggedIn, (req, res) => {
 //                       POST ROUTES
 // ====================================================
 
-// FAVORITES FUNCTIONALITY - saves items to a user's favorites list
+// FAVORITES FUNCTIONALITY - adds animes to users favorites list
 router.post('/favorites', isLoggedIn, (req, res) => {
     db.user.findOne({where: {id: req.user.id}})
     .then(foundUser => {
@@ -66,6 +66,8 @@ router.post('/favorites', isLoggedIn, (req, res) => {
                 foundUser.addAnime(foundAnime)
                 .then(() => {
                     res.redirect('/anime/favorites');
+                }).catch(error => {
+                    console.log(error);
                 })
             } else {
                 db.anime.create({
@@ -76,15 +78,23 @@ router.post('/favorites', isLoggedIn, (req, res) => {
                     foundUser.addAnime(createdAnime)
                     .then(() => {
                         res.redirect('/anime/favorites');
+                    }).catch(error => {
+                        console.log(error);
                     })
+                }).catch(error => {
+                    console.log(error);
                 })
             }
+        }).catch(error => {
+            console.log(error);
         })
+    }).catch(error => {
+        console.log(error);
     })
-})
+});
 
 
-// DELETE FUNCTIONALITY - deletes from favorites list
+// DELETE FUNCTIONALITY - deletes anime from users favorites list
 router.delete('/favorites/:id', isLoggedIn, (req, res) => {
     const id = req.params.id;
     db.anime.destroy({

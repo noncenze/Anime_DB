@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const methodOverride = require('method-override');
+const db = require('./models');
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 
@@ -46,11 +47,35 @@ app.get('/', (req, res) => {
 // ====================================================
 //                     PROFILE ROUTE
 // ====================================================
+
+// DISPLAY USER PROFILE
 app.get('/profile', isLoggedIn, (req, res) => {
   const {id, name, email} = req.user.get();
   res.render('profile', {id, name, email});
 });
 
+// DISPLAYS USER EDIT PAGE
+app.get('/edit/:id', isLoggedIn, (req, res) => {
+  const {id, name, email} = req.user.get();
+  res.render('edit', {id, name, email});
+})
+
+// EDIT USER ACCOUNT
+app.put('/edit/:id', isLoggedIn, (req, res) => {
+  db.user.findOne({where: {
+    name: req.user.name,
+    email: req.user.email
+  }}).then(userAccount => {
+    userAccount.update({
+      name: req.body.userName,
+      email: req.body.userEmail
+    }).then(() => {
+      res.redirect('/profile');
+    })
+  }).catch(error => {
+    console.log(error);
+  })
+})
 
 // ====================================================
 //                      CONTROLLERS
