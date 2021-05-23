@@ -18,7 +18,6 @@ router.get('/favorites', isLoggedIn, (req, res) => {
         include: [db.anime]
     }).then(response => {
         let data = response.dataValues.animes
-        console.log(data);
         res.render('anime/favorites', {favorites: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -32,8 +31,6 @@ router.get('/:id', (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=5&filter[text]=${search}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        // console.log(data);
-        console.log("------------------ END ------------------");
         res.render('anime/results', {animeResults: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -47,7 +44,6 @@ router.get('/details/:id', isLoggedIn, (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime/${animeId}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        console.log(data);
         res.render('anime/details', {anime: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
@@ -60,28 +56,89 @@ router.get('/details/:id', isLoggedIn, (req, res) => {
 //                       POST ROUTES
 // ====================================================
 
-// FAVORITES FUNCTIONALITY - saves items to a user's favorites list
-router.post('/favorites', isLoggedIn, async (req, res) => {
-    try {
-        const favoriteAnime = await db.anime.findOrCreate({
-            where: {
-                title: req.body.animeTitle,
-                uniqueId: req.body.uniqueId,
-                image: req.body.animeImage
+router.post('/favorites', isLoggedIn, (req, res) => {
+    const showId = req.body.uniqueId;
+    const showTitle = req.body.animeTitle;
+    const showImage = req.body.animeImage;
+    db.user.findOne({where: {id: req.user.id}})
+    .then(foundUser => {
+        console.log("FOUND USER ---------------> ", foundUser.email)
+        db.anime.findOrCreate({
+            where: {uniqueId: req.body.uniqueId},
+            defaults: {
+                uniqueId: showId,
+                title: showTitle,
+                image: showImage,
             }
-        });
-        const userAccount = await db.user.findOne({
-            where: {id: req.user.id}
-        });
-        userAccount.addAnimes(favoriteAnime);
-        console.log("USER INFORMATION -----------> ", userAccount);
-        res.redirect('/anime/favorites');
-    } catch (error) {
-        console.log('----------------- ERROR -----------------');
-        console.log(error);
-        res.redirect('/anime/favorites');
-    }
-});
+        }).then(databaseAnime => {
+            console.log("FOUND ANIME --------------> ", databaseAnime)
+            if (databaseAnime) {
+                foundUser.addAnime(databaseAnime)
+                .then(redirect => {
+                    res.redirect('/anime/favorites');
+                })
+            } else {
+                db.anime.create({
+                    uniqueId: showId,
+                    title: showTitle,
+                    image: showImage
+                }).then(createdAnime => {
+                    foundUser.addAnime(createdAnime)
+                    .then(redirect => {
+                        res.redirect('/anime/favorites')
+                    })
+                })
+            }
+        })
+    })
+})
+
+
+router.post('/favorites', isLoggedIn, (req, res) => {
+    const reqId = req.body.uniqueId;
+    const reqTitle = req.body.animeTitle;
+    const reqImage = req.body.animeImage;
+    db.user.findOne({where: {id: req.user.id}})
+    .then(foundUser => {
+        console.log('FOUND USER ----------------> ', foundUser.email)
+        db.anime.findOrCreate({
+            where: {uniqueId: req}
+        })
+    })
+})
+
+
+// FAVORITES FUNCTIONALITY - saves items to a user's favorites list
+// Currently only saves to existing items within the database
+// router.post('/favorites', isLoggedIn, (req, res) =>{
+//     db.user.findOne({where: {id: req.user.id}})
+//     .then(foundUser => {
+//         db.anime.findOne({
+//             where: {
+//                 uniqueId: req.body.uniqueId,
+//             },
+//         }).then(foundAnime => {
+//             if (foundAnime.title && foundAnime.image && foundAnime.uniqueId) {
+//                 foundUser.addAnime(foundAnime)
+//                 .then(response => {
+//                     res.redirect('/anime/favorites');
+//                 })
+//             } else {
+//                 db.anime.create({
+//                     uniqueId: req.body.uniqueId,
+//                     title: req.body.animeTitle,
+//                     image: req.body.animeImage
+//                 })
+//                 .then(createdAnime => {
+//                     foundUser.addAnime(createdAnime)
+//                     .then(response => {
+//                         res.redirect('/anime/favorites')
+//                     })
+//                 })
+//             }
+//         })
+//     })
+// })
 
 
 // DELETE FUNCTIONALITY - deletes from favorites list

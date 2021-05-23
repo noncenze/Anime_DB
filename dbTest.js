@@ -1,5 +1,3 @@
-const db = require('./models');
-
 async function fetchAnimeFromUser() {
     const anime = await db.anime.findOne({
         where: {title: 'Cowboy Bebop'}
@@ -17,7 +15,7 @@ async function fetchUsersFromAnime() {
     const anime = await user.getAnimes();
     console.log(anime);
 };
-fetchUsersFromAnime();
+// fetchUsersFromAnime();
 
 
 async function addAnimeToUser() {
@@ -25,7 +23,7 @@ async function addAnimeToUser() {
         where: {name: 'Test'}
     });
     const anime = await db.anime.findOne({
-        where: {title: 'Cowboy Bebop'}
+        where: {title: 'Digimon: Digital Monsters'}
     });
     const info = await user.addAnime(anime);
     console.log(info);
