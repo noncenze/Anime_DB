@@ -22,7 +22,8 @@
             <!-- FAVORITES BUTTON -->
             <form method="POST" action="/anime/favorites">
                 <input hidden type="text" name="animeTitle" value="<%= anime.attributes.titles.en %>">
-                <input hidden type="text" name="animeId" value="<%= anime.id %>">
+                <input hidden type="text" name="uniqueId" value="<%= anime.id %>">
+                <input hidden type="text" name="animeImage" value="<%= anime.attributes.posterImage.small %>">
                 <button class="btn btn-success" type="submit">Favorite</button>
             </form>
             <br/>

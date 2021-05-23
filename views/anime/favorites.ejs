@@ -4,9 +4,10 @@
     <ul>
     <!-- ANIME DETAILS -->
     <p>Anime Title: <%= anime.dataValues.title %></p>
+    <img src="<%= anime.dataValues.image %>" alt="<%= anime.dataValues.title %>">
     <!-- DETAILS BUTTON -->
     <div class="btn btn-dark">
-        <a href="/anime/details/<%= anime.dataValues.animeId %>">Details</a>
+        <a href="/anime/details/<%= anime.dataValues.uniqueId %>">Details</a>
     </div>
     <!-- DELETE BUTTON -->
     <form method="POST" action="/anime/favorites/<%= anime.dataValues.id %>/?_method=DELETE">

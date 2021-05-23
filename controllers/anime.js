@@ -4,17 +4,22 @@ const express = require('express');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 const db = require('../models');
+const passport = require('../config/ppConfig');
 
 
 // ====================================================
 //                       GET ROUTES
 // ====================================================
 
-// FAVORITES DETAILS - displays a list of all the anime that have been favorited
+// USER FAVORITES - displays all of the user's favorited anime
 router.get('/favorites', isLoggedIn, (req, res) => {
-    db.anime.findAll().then(response => {
-        console.log(response);
-        res.render('anime/favorites', {favorites: response})
+    db.user.findOne({
+        where: {id: req.user.id},
+        include: [db.anime]
+    }).then(response => {
+        let data = response.dataValues.animes
+        console.log(data);
+        res.render('anime/favorites', {favorites: data})
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
         console.log(error);
@@ -27,7 +32,7 @@ router.get('/:id', (req, res) => {
     const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=5&filter[text]=${search}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
-        console.log(data);
+        // console.log(data);
         console.log("------------------ END ------------------");
         res.render('anime/results', {animeResults: data})
     }).catch(error => {
@@ -55,20 +60,29 @@ router.get('/details/:id', isLoggedIn, (req, res) => {
 //                       POST ROUTES
 // ====================================================
 
-// FAVORITES FUNCTIONALITY - saves item to favorites list
-router.post('/favorites', isLoggedIn, (req, res) => {
-    db.anime.findOrCreate({
-        where: {
-            title: req.body.animeTitle, 
-            animeId: req.body.animeId
-        },
-    }).then(() => {
+// FAVORITES FUNCTIONALITY - saves items to a user's favorites list
+router.post('/favorites', isLoggedIn, async (req, res) => {
+    try {
+        const favoriteAnime = await db.anime.findOrCreate({
+            where: {
+                title: req.body.animeTitle,
+                uniqueId: req.body.uniqueId,
+                image: req.body.animeImage
+            }
+        });
+        const userAccount = await db.user.findOne({
+            where: {id: req.user.id}
+        });
+        userAccount.addAnimes(favoriteAnime);
+        console.log("USER INFORMATION -----------> ", userAccount);
         res.redirect('/anime/favorites');
-    }).catch(error => {
+    } catch (error) {
         console.log('----------------- ERROR -----------------');
         console.log(error);
-    })
+        res.redirect('/anime/favorites');
+    }
 });
+
 
 // DELETE FUNCTIONALITY - deletes from favorites list
 router.delete('/favorites/:id', isLoggedIn, (req, res) => {
