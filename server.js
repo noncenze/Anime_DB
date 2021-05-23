@@ -64,11 +64,11 @@ app.get('/edit/:id', isLoggedIn, (req, res) => {
 app.put('/edit/:id', isLoggedIn, (req, res) => {
   db.user.findOne({where: {
     name: req.user.name,
-    email: req.user.email
+    email: req.user.email,
   }}).then(userAccount => {
     userAccount.update({
       name: req.body.userName,
-      email: req.body.userEmail
+      email: req.body.userEmail,
     }).then(() => {
       res.redirect('/profile');
     })

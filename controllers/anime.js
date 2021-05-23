@@ -28,7 +28,7 @@ router.get('/favorites', isLoggedIn, (req, res) => {
 // SEARCH RESULTS - by categories with a specified limit
 router.get('/:id', (req, res) => {
     const search = req.query.userInput;
-    const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=5&filter[text]=${search}`;
+    const animeURL = `https://kitsu.io/api/edge/anime?page[limit]=20&filter[text]=${search}`;
     axios.get(animeURL).then(response => {
         let data = response.data.data;
         res.render('anime/results', {animeResults: data})
@@ -79,16 +79,20 @@ router.post('/favorites', isLoggedIn, (req, res) => {
                     .then(() => {
                         res.redirect('/anime/favorites');
                     }).catch(error => {
+                        console.log('----------------- ERROR -----------------');
                         console.log(error);
                     })
                 }).catch(error => {
+                    console.log('----------------- ERROR -----------------');
                     console.log(error);
                 })
             }
         }).catch(error => {
+            console.log('----------------- ERROR -----------------');
             console.log(error);
         })
     }).catch(error => {
+        console.log('----------------- ERROR -----------------');
         console.log(error);
     })
 });
@@ -99,8 +103,7 @@ router.delete('/favorites/:id', isLoggedIn, (req, res) => {
     const id = req.params.id;
     db.anime.destroy({
         where: {id: id}
-    }).then(response => {
-        console.log(response);
+    }).then(() => {
         res.redirect('/anime/favorites');
     }).catch(error => {
         console.log('----------------- ERROR -----------------');
