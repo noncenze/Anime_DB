@@ -1,9 +1,18 @@
-nav ul li {
+/* nav ul li {
   text-decoration: none;
   display: inline-block;
   margin-right: .3em;
-}
+} */
 
 h1 {
   color: chartreuse;
 }
+
+.container {
+  margin: 20px;
+}
+
+body {
+  padding-top: 70px;
+}
+

@@ -2,26 +2,22 @@
     <% animeResults.forEach(anime => { %>
         <% if (!currentUser) { %>
             <!-- DISPLAYS ONLY IMAGES FOR NON-LOGGED USERS -->
+            <div class=>
             <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.canonicalTitle %>">
-            <br/>
+            </div>
         <% } else { %>
             <!-- DISPLAYS ONLY FOR LOGGED IN USERS -->
             <!-- DISPLAY TITLE -->
-            <% if (anime.attributes.titles.en) { %>
-                <p>Title: <%= anime.attributes.titles.en %> </p>
-            <% } else { %>
-                <p>Title: <%= anime.attributes.canonicalTitle %></p>
-            <% }; %>
-            <!-- DISPLAY IMAGE -->
-            <img src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.slug %>">
-            <br/>
-            <!-- DETAILS BUTTONS -->
-            <div class="btn btn-dark">
-                <a href="/anime/details/<%= anime.id %>">Details</a>
+            <p>Title: <%= anime.attributes.canonicalTitle %></p>
+            <!-- DISPLAYS CLICKABLE IMAGE -->
+            <div>
+                <a href="/anime/details/<%= anime.id %>">
+                    <img class="border border-secondary" src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.canonicalTitle %>">
+                </a>
             </div>
             <!-- FAVORITES BUTTON -->
             <form method="POST" action="/anime/favorites">
-                <input hidden type="text" name="animeTitle" value="<%= anime.attributes.titles.en %>">
+                <input hidden type="text" name="animeTitle" value="<%= anime.attributes.canonicalTitle %>">
                 <input hidden type="text" name="uniqueId" value="<%= anime.id %>">
                 <input hidden type="text" name="animeImage" value="<%= anime.attributes.posterImage.small %>">
                 <button class="btn btn-success" type="submit">Favorite</button>

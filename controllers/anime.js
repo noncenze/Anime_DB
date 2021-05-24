@@ -98,6 +98,7 @@ router.post('/favorites', isLoggedIn, (req, res) => {
 });
 
 
+
 // DELETE FUNCTIONALITY - deletes anime from users favorites list
 router.delete('/favorites/:id', isLoggedIn, (req, res) => {
     const id = req.params.id;
