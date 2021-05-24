@@ -1,11 +1,6 @@
-/* nav ul li {
-  text-decoration: none;
-  display: inline-block;
-  margin-right: .3em;
-} */
-
 h1 {
-  color: chartreuse;
+  color: rgb(71, 121, 141);
+  font-family: "Roboto", sans-serif;
 }
 
 .container {
@@ -15,4 +10,3 @@ h1 {
 body {
   padding-top: 70px;
 }
-

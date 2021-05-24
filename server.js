@@ -8,6 +8,7 @@ const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const methodOverride = require('method-override');
 const db = require('./models');
+const { default: axios } = require('axios');
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 
@@ -39,9 +40,15 @@ app.use((req, res, next) => {           // Store flash messages and user on res.
 // ====================================================
 //                     INDEX ROUTE
 // ====================================================
+
+// MAIN PAGE
 app.get('/', (req, res) => {
-  res.render('index');
-});
+  const animeURL = `https://kitsu.io/api/edge/trending/anime?page[limit]=12`;
+  axios.get(animeURL).then(response => {
+    let data = response.data.data;
+    res.render('index', {trendingAnimes: data})
+  })
+})
 
 
 // ====================================================
