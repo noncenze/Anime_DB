@@ -1,5 +1,6 @@
-<h2>Edit Account</h2>
+<h1 class="text-center">Edit Account</h2>
 
+<div class="container text-center">
 <form method="POST" action="/edit/<%= name %>/?_method=PUT">
     <label for="userName">Name</label>
     <input type="text" name="userName" id="userName" value="<%= name %>">
@@ -7,4 +8,5 @@
     <input type="text" name="userEmail" id="userEmail" value="<%= email %>">
     <input type="submit">
 </form>
+</div>
 

@@ -1,13 +1,13 @@
-<h2>Favorites Page</h2>
+<h1 class="text-center">Favorite Anime</h1>
 
+<div class="container">
 <% favorites.forEach(anime => { %>
     <ul>
     <!-- ANIME DETAILS -->
-    <p>Anime Title: <%= anime.dataValues.title %></p>
-    <img src="<%= anime.dataValues.image %>" alt="<%= anime.dataValues.title %>">
-    <!-- DETAILS BUTTON -->
-    <div class="btn btn-dark">
-        <a href="/anime/details/<%= anime.dataValues.uniqueId %>">Details</a>
+    <div>
+        <a href="/anime/details/<%= anime.dataValues.uniqueId %>">
+            <img src="<%= anime.dataValues.image %>" alt="<%= anime.dataValues.title %>">
+        </a>
     </div>
     <!-- DELETE BUTTON -->
     <form method="POST" action="/anime/favorites/<%= anime.dataValues.id %>/?_method=DELETE">
@@ -15,6 +15,7 @@
     </form>
     </ul>
 <% }); %>
+</div>
 
 <br/>
 <a href="/">&larr; Home</a>

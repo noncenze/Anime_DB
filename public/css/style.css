@@ -1,12 +1,18 @@
 h1 {
   color: rgb(71, 121, 141);
   font-family: "Roboto", sans-serif;
+  padding-top: 20px;
 }
 
 .container {
-  margin: 20px;
+  padding-top: 20px;
+  margin: 10px;
 }
 
 body {
   padding-top: 70px;
+}
+
+#anime-details {
+  text-align: center;
 }

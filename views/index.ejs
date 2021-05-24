@@ -1,14 +1,11 @@
-<section class="jumbotron text-center">
-    <div class="container" id="trending-anime">
-      <h1 class="jumbotron-heading">Trending Animes</h1>
-      <p class="lead text-muted">Here are some of the currently trending anime.</p>
-      <p>
-        <a href="#" class="btn btn-secondary my-2">Adventure</a>
-        <a href="#" class="btn btn-secondary my-2">Sci-Fi</a>
-        <a href="#" class="btn btn-secondary my-2">Horror</a>
-      </p>
-    </div>
-</section>
+<h1 class="text-center">Trending Anime</h1>
+<p class="lead text-muted text-center">Here are some of the currently trending anime</p>
+<p class="text-center">
+    <a href="#" class="btn btn-secondary my-2">Adventure</a>
+    <a href="#" class="btn btn-secondary my-2">Sci-Fi</a>
+    <a href="#" class="btn btn-secondary my-2">Horror</a>
+</p>
+
 
 <div class="container">
     <% trendingAnimes.forEach(anime => { %>
@@ -19,9 +16,7 @@
             </div>
         <% } else { %>
             <!-- DISPLAYS ONLY FOR LOGGED IN USERS -->
-            <!-- DISPLAY TITLE -->
-            <!-- <p>Title: <%= ///anime.attributes.canonicalTitle %></p> -->
-            <!-- DISPLAYS CLICKABLE IMAGE -->
+            <!-- DISPLAY CLICKABLE IMAGES -->
             <div class="column">
                 <a href="/anime/details/<%= anime.id %>">
                     <img class="border border-secondary" src="<%= anime.attributes.posterImage.small %>" alt="<%= anime.attributes.canonicalTitle %>">
